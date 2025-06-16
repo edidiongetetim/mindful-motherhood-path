@@ -12,7 +12,8 @@ import {
   MessageCircle,
   Users,
   BookOpen,
-  Settings
+  Settings,
+  Shield
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";

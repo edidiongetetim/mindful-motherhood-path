@@ -35,58 +35,73 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen gradient-bg flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2 mb-6">
-            <div className="p-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500">
-              <Heart className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              WellNest
-            </span>
-          </Link>
-        </div>
+    <div className="min-h-screen bg-white flex">
+      {/* Left side - Login form */}
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-20 xl:px-24">
+        <div className="mx-auto w-full max-w-sm lg:w-96">
+          <div>
+            <Link to="/" className="inline-flex items-center space-x-2 mb-8">
+              <div className="p-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500">
+                <Heart className="h-6 w-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                WellNest
+              </span>
+            </Link>
+            <h2 className="mt-8 text-3xl font-bold tracking-tight text-gray-900">
+              Sign in to your account
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Don't have an account?{' '}
+              <Link
+                to="/signup"
+                className="font-medium text-purple-600 hover:text-purple-500"
+              >
+                Create one here
+              </Link>
+            </p>
+          </div>
 
-        <Card className="border-purple-100 shadow-xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
-            <CardDescription className="text-center">
-              Sign in to access your wellness account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="hello@mom@telegram.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="border-purple-200 focus:border-purple-400"
-                />
+          <div className="mt-10">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <Label htmlFor="email" className="block text-sm font-medium text-gray-900">
+                  Email address
+                </Label>
+                <div className="mt-2">
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="block w-full"
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
+              <div>
+                <Label htmlFor="password" className="block text-sm font-medium text-gray-900">
+                  Password
+                </Label>
+                <div className="mt-2 relative">
                   <Input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="••••••••••••••••"
+                    autoComplete="current-password"
+                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="border-purple-200 focus:border-purple-400 pr-10"
+                    className="block w-full pr-10"
                   />
                   <Button
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
@@ -99,50 +114,59 @@ const Login = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center">
                   <Checkbox
-                    id="remember"
+                    id="remember-me"
                     checked={rememberMe}
-                    onCheckedChange={setRememberMe}
+                    onCheckedChange={(checked) => setRememberMe(checked === true)}
                   />
-                  <Label
-                    htmlFor="remember"
-                    className="text-sm font-normal cursor-pointer"
-                  >
+                  <Label htmlFor="remember-me" className="ml-3 block text-sm text-gray-900">
                     Remember me
                   </Label>
                 </div>
-                <Button variant="link" className="px-0 text-purple-600 hover:text-purple-700">
-                  Forgot password?
-                </Button>
+
+                <div className="text-sm leading-6">
+                  <Link
+                    to="/forgot-password"
+                    className="font-semibold text-purple-600 hover:text-purple-500"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full wellness-gradient text-white py-2"
-                disabled={isLoading}
-              >
-                {isLoading ? "Signing in..." : "Login"}
-              </Button>
+              <div>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex w-full justify-center bg-purple-600 hover:bg-purple-700 text-white"
+                >
+                  {isLoading ? "Signing in..." : "Sign in"}
+                </Button>
+              </div>
             </form>
+          </div>
+        </div>
+      </div>
 
-            <div className="text-center mt-6">
-              <p className="text-sm text-gray-600">
-                Don't have an account?{" "}
-                <Link to="/signup" className="font-medium text-purple-600 hover:text-purple-700">
-                  Create account
-                </Link>
+      {/* Right side - Image/illustration */}
+      <div className="hidden lg:block relative flex-1">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50">
+          <div className="flex h-full items-center justify-center p-12">
+            <div className="max-w-md text-center">
+              <div className="mb-8">
+                <div className="mx-auto h-32 w-32 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
+                  <Heart className="h-16 w-16 text-white" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Welcome back to your wellness journey
+              </h3>
+              <p className="text-gray-600">
+                Track your pregnancy and postpartum health with AI-powered insights and 24/7 support.
               </p>
             </div>
-          </CardContent>
-        </Card>
-
-        <div className="text-center mt-6 text-sm text-gray-500">
-          <p>Already have an account? 
-            <Link to="/login" className="text-purple-600 hover:text-purple-700 ml-1">
-              Sign in
-            </Link>
-          </p>
+          </div>
         </div>
       </div>
     </div>
